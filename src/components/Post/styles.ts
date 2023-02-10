@@ -27,6 +27,12 @@ export const PostContainer = styled.article`
 	@media (max-width: 960px) {
 		width: 100%;
 	}
+
+	@media (max-width: 480px) {
+		p {
+			-webkit-line-clamp: 3;
+		}
+	}
 `;
 
 export const HeaderPost = styled.div`
