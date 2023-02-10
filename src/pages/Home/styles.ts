@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const HomeContainer = styled.div`
 	max-width: 54rem;
@@ -22,7 +22,7 @@ export const PostsContainer = styled.main`
 	);
 `;
 
-export const HeaderHome = styled.div`
+export const HeaderHome = styled.div<{ isTop?: boolean }>`
 	background-color: ${({ theme }) => theme['base-background']};
 	padding-top: 4.5rem;
 	display: flex;
@@ -43,6 +43,14 @@ export const HeaderHome = styled.div`
 		font-size: 1rem;
 		line-height: 1.6;
 	}
+
+	${({ isTop }) =>
+		isTop &&
+		css`
+			position: sticky;
+			top: 0;
+			padding-top: 2rem;
+		`}
 `;
 
 export const HeaderInfo = styled.div`

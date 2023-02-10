@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Post } from '~/components/Post';
 import {
@@ -14,9 +15,28 @@ export function Home() {
 		navigate('/post');
 	}
 
+	const [isHeaderFixed, setIsHeaderFixed] = useState(false);
+	const headerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (!headerRef.current) return;
+
+			const headerTop = headerRef.current.getBoundingClientRect().top;
+
+			setIsHeaderFixed(headerTop <= 0);
+		};
+
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, [headerRef]);
+
 	return (
 		<HomeContainer>
-			<HeaderHome>
+			<HeaderHome
+				ref={headerRef}
+				isTop={isHeaderFixed}
+			>
 				<HeaderInfo>
 					<span>Publicações</span>
 					<span>6 publicações</span>
