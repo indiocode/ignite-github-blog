@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { HomeContainer } from './styles';
+import { Post } from '~/components/Post';
+import { HomeContainer, PostsContainer } from './styles';
 
 export function Home() {
 	const navigate = useNavigate();
@@ -10,8 +11,14 @@ export function Home() {
 
 	return (
 		<HomeContainer>
-			<h1>Home</h1>
-			<button onClick={handleNavigateToPost}>Navigate to post</button>
+			<PostsContainer>
+				<Post onClick={handleNavigateToPost} />
+				<Post onClick={handleNavigateToPost} />
+				<Post onClick={handleNavigateToPost} />
+				<Post onClick={handleNavigateToPost} />
+				<Post onClick={handleNavigateToPost} />
+				<Post onClick={handleNavigateToPost} />
+			</PostsContainer>
 		</HomeContainer>
 	);
 }

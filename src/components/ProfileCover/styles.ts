@@ -67,7 +67,7 @@ export const ProfileHeader = styled.div`
 
 		&:hover:before {
 			transform: scaleX(1);
-			transition: transform 0.3s ease-in-out;
+			transition: transform 0.2s ease-in-out;
 		}
 	}
 `;

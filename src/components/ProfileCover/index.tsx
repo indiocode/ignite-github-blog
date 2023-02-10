@@ -14,7 +14,7 @@ import {
 	SocialIconGroup,
 } from './styles';
 
-export function Profile() {
+export function ProfileCover() {
 	return (
 		<ProfileContainer>
 			<img

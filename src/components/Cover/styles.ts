@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CoverContainer = styled.div`
-	position: relative;
+	position: sticky;
 	max-width: 54rem;
 	margin: 0 auto;
 	background-color: ${({ theme }) => theme['base-profile']};
@@ -9,5 +9,5 @@ export const CoverContainer = styled.div`
 	border-radius: 10px;
 	padding: 2rem;
 	z-index: 9999;
-	margin-top: 13rem;
+	top: 12rem;
 `;
