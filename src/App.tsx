@@ -1,7 +1,12 @@
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from './styles/global';
+import { defaultTheme } from './styles/theme/default';
+
 export function App() {
 	return (
-		<div>
-			<h1>Welvome to Web App React Vite Boilerplate</h1>
-		</div>
+		<ThemeProvider theme={defaultTheme}>
+			<h1>Hello</h1>
+			<GlobalStyle />
+		</ThemeProvider>
 	);
 }
