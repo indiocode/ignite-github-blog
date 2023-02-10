@@ -1,6 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Post } from '~/components/Post';
-import { HomeContainer, PostsContainer } from './styles';
+import {
+	HeaderHome,
+	HeaderInfo,
+	HomeContainer,
+	PostsContainer,
+} from './styles';
 
 export function Home() {
 	const navigate = useNavigate();
@@ -11,6 +16,17 @@ export function Home() {
 
 	return (
 		<HomeContainer>
+			<HeaderHome>
+				<HeaderInfo>
+					<span>Publicações</span>
+					<span>6 publicações</span>
+				</HeaderInfo>
+				<input
+					type="text"
+					placeholder="Buscar conteúdo"
+				/>
+			</HeaderHome>
+
 			<PostsContainer>
 				<Post onClick={handleNavigateToPost} />
 				<Post onClick={handleNavigateToPost} />
