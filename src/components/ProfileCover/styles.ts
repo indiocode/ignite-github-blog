@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const ProfileContainer = styled.div`
 	display: flex;
-	/* flex-wrap: wrap; */
 	gap: 2rem;
 
 	img {
@@ -70,12 +69,20 @@ export const ProfileHeader = styled.div`
 			transition: transform 0.2s ease-in-out;
 		}
 	}
+
+	@media (max-width: 480px) {
+		flex-direction: column-reverse;
+	}
 `;
 
 export const SocialIconGroup = styled.div`
 	display: flex;
 	gap: 1.5rem;
 	padding-top: 1.5rem;
+
+	@media (max-width: 480px) {
+		flex-wrap: wrap;
+	}
 `;
 
 export const SocialIcon = styled.div`

@@ -36,8 +36,13 @@ export const HeaderPost = styled.div`
 
 	h1 {
 		max-width: 17.6875rem;
+		width: 100%;
 		font-weight: 700;
 		font-size: 1.25rem;
 		line-height: 1.6;
+	}
+
+	@media (max-width: 480px) {
+		flex-direction: column-reverse;
 	}
 `;

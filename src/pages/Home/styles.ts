@@ -15,7 +15,7 @@ export const PostsContainer = styled.main`
 
 	gap: 2rem;
 
-	--auto-grid-min-size: 26rem;
+	--auto-grid-min-size: 18.125rem;
 	grid-template-columns: repeat(
 		auto-fill,
 		minmax(var(--auto-grid-min-size), 1fr)
