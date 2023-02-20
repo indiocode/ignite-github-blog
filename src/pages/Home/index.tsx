@@ -1,6 +1,9 @@
+import type { ReactElement } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { Post } from '~/components/Post';
+
 import {
 	HeaderHome,
 	HeaderInfo,
@@ -8,10 +11,10 @@ import {
 	PostsContainer,
 } from './styles';
 
-export function Home() {
+export function Home(): ReactElement {
 	const navigate = useNavigate();
 
-	function handleNavigateToPost() {
+	function handleNavigateToPost(): void {
 		navigate('/post');
 	}
 
@@ -19,7 +22,7 @@ export function Home() {
 	const headerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const handleScroll = () => {
+		const handleScroll = (): void => {
 			if (!headerRef.current) return;
 
 			const headerTop = headerRef.current.getBoundingClientRect().top;
@@ -28,7 +31,7 @@ export function Home() {
 		};
 
 		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
+		return (): void => window.removeEventListener('scroll', handleScroll);
 	}, [headerRef]);
 
 	return (

@@ -1,11 +1,12 @@
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
 	faArrowUpRightFromSquare,
-	faChevronLeft,
 	faCalendar,
+	faChevronLeft,
 	faComment,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import {
@@ -16,7 +17,7 @@ import {
 	SocialIconGroup,
 } from './styles';
 
-export function PostCover() {
+export function PostCover(): ReactElement {
 	return (
 		<PostContainer>
 			<PostInfo>

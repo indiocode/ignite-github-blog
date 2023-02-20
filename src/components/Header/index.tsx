@@ -1,7 +1,10 @@
+import type { ReactElement } from 'react';
+
 import { Logo } from '~/assets';
+
 import { HeaderContainer } from './styles';
 
-export function Header() {
+export function Header(): ReactElement {
 	return (
 		<HeaderContainer>
 			<img

@@ -1,9 +1,10 @@
-import { HtmlHTMLAttributes } from 'react';
+import type { HtmlHTMLAttributes, ReactElement } from 'react';
+
 import { HeaderPost, PostContainer } from './styles';
 
 interface PostProps extends HtmlHTMLAttributes<HTMLElement> {}
 
-export function Post({ ...rest }: PostProps) {
+export function Post({ ...rest }: PostProps): ReactElement {
 	return (
 		<PostContainer {...rest}>
 			<HeaderPost>

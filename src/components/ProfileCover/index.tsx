@@ -5,6 +5,7 @@ import {
 	faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { ReactElement } from 'react';
 
 import {
 	ProfileContainer,
@@ -14,7 +15,7 @@ import {
 	SocialIconGroup,
 } from './styles';
 
-export function ProfileCover() {
+export function ProfileCover(): ReactElement {
 	return (
 		<ProfileContainer>
 			<img

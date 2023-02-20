@@ -1,9 +1,11 @@
+import type { ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
+
 import { DefaultLayout } from './layouts/DefaultLayout';
 import { Home } from './pages/Home';
 import { Posts } from './pages/Posts';
 
-export function Router() {
+export function Router(): ReactElement {
 	return (
 		<Routes>
 			<Route
