@@ -1,24 +1,28 @@
+import { formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import type { HtmlHTMLAttributes, ReactElement } from 'react';
+
+import type { PostItem } from '~/pages/Home';
 
 import { HeaderPost, PostContainer } from './styles';
 
-interface PostProps extends HtmlHTMLAttributes<HTMLElement> {}
+interface PostProps extends HtmlHTMLAttributes<HTMLElement> {
+	item: PostItem;
+}
 
-export function Post({ ...rest }: PostProps): ReactElement {
+export function Post({ item, ...rest }: PostProps): ReactElement {
 	return (
 		<PostContainer {...rest}>
 			<HeaderPost>
-				<h1>JavaScript data types and data structures</h1>
-				<span>há 1 dia</span>
+				<h1>{item.title}</h1>
+				<span>
+					{formatDistanceToNow(new Date(item.createdAt), {
+						addSuffix: true,
+						locale: ptBR,
+					})}
+				</span>
 			</HeaderPost>
-			<p>
-				Programming languages all have built-in data structures, but these often
-				differ from one language to another. This article attempts to list the
-				built-in data structures available in JavaScript and what properties
-				they have. These can be used to build other data structures. Wherever
-				possible, comparisons with other languages are drawn. Dynamic typing
-				JavaScript is a loosely typed and dynamic language.
-			</p>
+			<p>{item.content}</p>
 		</PostContainer>
 	);
 }

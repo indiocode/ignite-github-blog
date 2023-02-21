@@ -17,7 +17,7 @@ export function Router(): ReactElement {
 					element={<Home />}
 				/>
 				<Route
-					path="/post"
+					path="/post/:id"
 					element={<Posts />}
 				/>
 			</Route>
