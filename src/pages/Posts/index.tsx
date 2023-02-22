@@ -1,22 +1,36 @@
+import Markdown from 'markdown-to-jsx';
 import type { ReactElement } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { PostService } from '~/api';
+import type { Post } from '~/models/Post';
 
 import { PostContainer } from './styles';
 
-const data = `
-- [ ] Task list 1
-- [ ] Pending task list 2
-- [x] Completed task list 3
-- [x] Completed task list 4 
-
-
-`;
-
 export function Posts(): ReactElement {
+	const { id } = useParams();
+
+	const [post, setPost] = useState<Post>({} as Post);
+
+	const getPost = useCallback(async () => {
+		try {
+			const { data } = await PostService.getPost(Number(id));
+			setPost(data);
+		} catch (error) {
+			console.error(error);
+		}
+	}, [id]);
+
+	useEffect(() => {
+		getPost();
+	}, [getPost]);
+
+	console.log(post);
+
 	return (
 		<PostContainer>
-			<ReactMarkdown remarkPlugins={[remarkGfm]}>{data}</ReactMarkdown>
+			{post.body && <Markdown>{post.body}</Markdown>}
 		</PostContainer>
 	);
 }

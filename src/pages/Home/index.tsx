@@ -3,7 +3,9 @@ import type { ReactElement } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { PostService } from '~/api';
 import { Post } from '~/components/Post';
+import type { Post as PostItem, PostResponses } from '~/models/Post';
 
 import {
 	HeaderHome,
@@ -12,73 +14,30 @@ import {
 	PostsContainer,
 } from './styles';
 
-export interface PostItem {
-	id?: string;
-	title: string;
-	createdAt: Date;
-	content: string;
-}
-
-const posts: PostItem[] = [
-	{
-		id: '40e5319c-293e-11ec-8d53-0242ac130003',
-		title: 'JavaScript data types and data structures',
-		createdAt: new Date(2023, 1, 19),
-		content: `Programming languages all have built-in data structures, but these often
-    differ from one language to another. This article attempts to list the
-    built-in data structures available in JavaScript and what properties
-    they have. These can be used to build other data structures. Wherever
-    possible, comparisons with other languages are drawn. Dynamic typing
-    JavaScript is a loosely typed and dynamic language.`,
-	},
-
-	{
-		id: '40e5319c-293e-11ec-8d53-0242ac130004',
-		title: 'Java data types and data structures',
-		createdAt: new Date(),
-		content: `Programming languages all have built-in data structures, but these often
-    differ from one language to another. This article attempts to list the
-    built-in data structures available in JavaScript and what properties
-    they have. These can be used to build other data structures. Wherever
-    possible, comparisons with other languages are drawn. Dynamic typing
-    JavaScript is a loosely typed and dynamic language.`,
-	},
-
-	{
-		id: '40e5319c-293e-11ec-8d53-0242ac130005',
-		title: 'Typescript data types and data structures',
-		createdAt: new Date(),
-		content: `Programming languages all have built-in data structures, but these often
-    differ from one language to another. This article attempts to list the
-    built-in data structures available in JavaScript and what properties
-    they have. These can be used to build other data structures. Wherever
-    possible, comparisons with other languages are drawn. Dynamic typing
-    JavaScript is a loosely typed and dynamic language.`,
-	},
-
-	{
-		id: '40e5319c-293e-11ec-8d53-0242ac130006',
-		title: 'Python data types and data structures',
-		createdAt: new Date(),
-		content: `Programming languages all have built-in data structures, but these often
-    differ from one language to another. This article attempts to list the
-    built-in data structures available in JavaScript and what properties
-    they have. These can be used to build other data structures. Wherever
-    possible, comparisons with other languages are drawn. Dynamic typing
-    JavaScript is a loosely typed and dynamic language.`,
-	},
-];
-
 export function Home(): ReactElement {
 	const navigate = useNavigate();
 	const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 
-	function handleNavigateToPost(post: PostItem): void {
-		navigate(`/post/${post.id}`);
-	}
-
+	const [posts, setPosts] = useState<PostResponses>({} as PostResponses);
 	const [isHeaderFixed, setIsHeaderFixed] = useState(false);
 	const headerRef = useRef<HTMLDivElement>(null);
+
+	function handleNavigateToPost(post: PostItem): void {
+		navigate(`/post/${post.number}`);
+	}
+
+	async function getPosts(): Promise<void> {
+		try {
+			const { data } = await PostService.getPosts();
+			setPosts(data);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	useEffect(() => {
+		getPosts();
+	}, []);
 
 	useEffect(() => {
 		const handleScroll = (): void => {
@@ -101,7 +60,7 @@ export function Home(): ReactElement {
 			>
 				<HeaderInfo>
 					<span>Publicações</span>
-					<span>6 publicações</span>
+					<span>{posts.total_count} publicações</span>
 				</HeaderInfo>
 				<input
 					type="text"
@@ -110,7 +69,7 @@ export function Home(): ReactElement {
 			</HeaderHome>
 
 			<PostsContainer ref={parent}>
-				{posts.map((post) => (
+				{posts.items?.map((post) => (
 					<Post
 						item={post}
 						onClick={(): void => handleNavigateToPost(post)}

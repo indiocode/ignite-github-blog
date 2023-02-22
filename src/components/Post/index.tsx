@@ -2,7 +2,7 @@ import { formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import type { HtmlHTMLAttributes, ReactElement } from 'react';
 
-import type { PostItem } from '~/pages/Home';
+import type { Post as PostItem } from '~/models/Post';
 
 import { HeaderPost, PostContainer } from './styles';
 
@@ -16,13 +16,13 @@ export function Post({ item, ...rest }: PostProps): ReactElement {
 			<HeaderPost>
 				<h1>{item.title}</h1>
 				<span>
-					{formatDistanceToNow(new Date(item.createdAt), {
+					{formatDistanceToNow(new Date(item.created_at), {
 						addSuffix: true,
 						locale: ptBR,
 					})}
 				</span>
 			</HeaderPost>
-			<p>{item.content}</p>
+			<p>{item.body}</p>
 		</PostContainer>
 	);
 }

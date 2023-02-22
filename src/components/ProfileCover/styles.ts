@@ -2,6 +2,7 @@
 import styled from 'styled-components';
 
 export const ProfileContainer = styled.div`
+	width: 100%;
 	display: flex;
 	gap: 2rem;
 
@@ -23,6 +24,8 @@ export const ProfileContainer = styled.div`
 export const ProfileInfo = styled.div`
 	display: flex;
 	flex-direction: column;
+	flex: 1;
+
 	gap: 0.5rem;
 
 	p {
@@ -35,6 +38,7 @@ export const ProfileInfo = styled.div`
 export const ProfileHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
+
 	align-items: flex-start;
 
 	h1 {

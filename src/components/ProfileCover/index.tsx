@@ -6,6 +6,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { ReactElement } from 'react';
+import { useEffect, useState } from 'react';
+
+import { UserService } from '~/api';
+import type { User } from '~/models/User';
 
 import {
 	ProfileContainer,
@@ -16,19 +20,39 @@ import {
 } from './styles';
 
 export function ProfileCover(): ReactElement {
+	const [user, setUser] = useState<User | null>(null);
+
+	async function getUser(): Promise<void> {
+		try {
+			const { data } = await UserService.getUser();
+			setUser(data);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	useEffect(() => {
+		getUser();
+	}, []);
+
+	const formatter = new Intl.NumberFormat('en-GB', {
+		notation: 'compact',
+		compactDisplay: 'short',
+	});
+
 	return (
 		<ProfileContainer>
 			<img
-				src="https://picsum.photos/148"
+				src={user?.avatar_url}
 				alt="Cover Image"
 			/>
 
 			<ProfileInfo>
 				<ProfileHeader>
-					<h1>Cameron Williamson</h1>
+					<h1>{user?.name}</h1>
 
 					<a
-						href="https://github.com/indiocode"
+						href={user?.html_url}
 						rel="noopener noreferrer"
 						target="_blank"
 					>
@@ -37,25 +61,21 @@ export function ProfileCover(): ReactElement {
 					</a>
 				</ProfileHeader>
 
-				<p>
-					Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-					viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-					pulvinar vel mass.
-				</p>
+				<p>{user?.bio}</p>
 
 				<SocialIconGroup>
 					<SocialIcon>
 						<FontAwesomeIcon icon={faGithub} />
-						<span>cameronwll</span>
+						<span>{user?.login}</span>
 					</SocialIcon>
 
 					<SocialIcon>
 						<FontAwesomeIcon icon={faBuilding} />
-						<span>Rocketseat</span>
+						<span>{user?.company}</span>
 					</SocialIcon>
 					<SocialIcon>
 						<FontAwesomeIcon icon={faUserGroup} />
-						<span>32 seguidores</span>
+						<span>{formatter.format(Number(user?.followers))} seguidores</span>
 					</SocialIcon>
 				</SocialIconGroup>
 			</ProfileInfo>
